@@ -2,7 +2,7 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "framework": null,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
@@ -10,7 +10,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0"
+          "value": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0"
         },
         {
           "key": "Pragma",
@@ -23,6 +23,14 @@
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "no-cache"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "no-cache"
         }
       ]
     },
@@ -31,10 +39,14 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0"
+          "value": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0"
         },
         {
           "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "CDN-Cache-Control",
           "value": "no-cache"
         }
       ]
@@ -44,7 +56,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0"
+          "value": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0"
         }
       ]
     }
