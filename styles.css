@@ -4,16 +4,14 @@
     box-sizing: border-box;
 }
 
-html, body {
+html {
     height: 100%;
+    height: -webkit-fill-available;
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-}
-
-html {
-    height: -webkit-fill-available;
+    background-color: #353029;
 }
 
 body {
@@ -23,15 +21,15 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    min-height: 100dvh;
+    height: 100%;
+    height: -webkit-fill-available;
+    height: 100dvh;
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
 }
 
 .logo {
@@ -113,12 +111,17 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    html {
+        height: 100%;
+        height: -webkit-fill-available;
+    }
+    
     body {
         background-attachment: scroll;
         background-size: cover;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-        min-height: 100dvh;
+        height: 100%;
+        height: -webkit-fill-available;
+        height: 100dvh;
     }
     
     .button-titles {
@@ -133,8 +136,12 @@ body {
 
 /* Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
+    html {
+        height: -webkit-fill-available;
+    }
+    
     body {
-        min-height: -webkit-fill-available;
+        height: -webkit-fill-available;
     }
 }
 
