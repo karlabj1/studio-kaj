@@ -77,7 +77,7 @@ body {
     position: relative;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    touch-action: pan-y;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     will-change: max-height;
@@ -97,7 +97,7 @@ body {
     object-fit: cover;
     display: block;
     flex-shrink: 0;
-    transition: object-fit 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: object-fit 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     -webkit-transform: translateZ(0);
@@ -105,8 +105,9 @@ body {
 }
 
 .image-item.expanded img {
-    height: auto;
+    height: auto !important;
     min-height: 80px;
+    max-height: none;
     object-fit: contain;
     width: 100%;
 }

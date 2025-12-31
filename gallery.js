@@ -23,9 +23,10 @@
             let touchStartY = 0;
             let touchMoved = false;
             let touchStartTime = 0;
+            let touchHandled = false;
             
             const toggleImage = function() {
-                // Immediate toggle - no delays, no event needed
+                // Immediate toggle - no delays
                 const isExpanded = item.classList.contains('expanded');
                 
                 if (isExpanded) {
@@ -37,41 +38,48 @@
                 }
             };
             
-            // Use pointer events for better performance on mobile
-            item.addEventListener('pointerdown', function(e) {
-                if (e.pointerType === 'touch') {
-                    touchStartY = e.clientY;
-                    touchStartTime = Date.now();
-                    touchMoved = false;
-                }
+            // Touch events for mobile (more reliable on iOS)
+            item.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
+                touchMoved = false;
+                touchHandled = false;
             }, { passive: true });
             
-            item.addEventListener('pointermove', function(e) {
-                if (e.pointerType === 'touch' && touchStartTime > 0) {
-                    const distance = Math.abs(e.clientY - touchStartY);
-                    if (distance > 20) {
+            item.addEventListener('touchmove', function(e) {
+                if (touchStartTime > 0) {
+                    const touchY = e.touches[0].clientY;
+                    const distance = Math.abs(touchY - touchStartY);
+                    // Only mark as moved if significant scroll (25px threshold)
+                    if (distance > 25) {
                         touchMoved = true;
                     }
                 }
             }, { passive: true });
             
-            item.addEventListener('pointerup', function(e) {
-                if (e.pointerType === 'touch') {
+            item.addEventListener('touchend', function(e) {
+                if (touchStartTime > 0) {
                     const touchDuration = Date.now() - touchStartTime;
-                    // Fast tap detection - only block if it was a long press or scroll
-                    if (!touchMoved && touchDuration < 500) {
+                    // Handle tap if: not moved, reasonable duration, and not already handled
+                    if (!touchMoved && touchDuration > 0 && touchDuration < 500 && !touchHandled) {
                         e.preventDefault();
                         e.stopPropagation();
+                        touchHandled = true;
                         toggleImage();
                     }
+                    // Reset state
                     touchStartTime = 0;
                     touchMoved = false;
+                    setTimeout(function() {
+                        touchHandled = false;
+                    }, 50);
                 }
             }, { passive: false });
             
-            // Click for desktop and fallback
+            // Click for desktop
             item.addEventListener('click', function(e) {
-                if (e.pointerType !== 'touch') {
+                // Only handle click if it wasn't from a touch event
+                if (!touchHandled) {
                     toggleImage();
                 }
             });
