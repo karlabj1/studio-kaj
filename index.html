@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -11,37 +11,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="assets/background-image.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=6">
-    <style>
-        /* Inline critical CSS for immediate application */
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        html {
-            background-color: #353029 !important;
-        }
-        body {
-            background-color: #353029 !important;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css?v=7">
     <script>
-        // Force set height on load for Safari
+        // Safari mobile viewport fix
         (function() {
-            function setHeight() {
-                var vh = window.innerHeight;
-                document.documentElement.style.setProperty('--vh', vh + 'px');
-                document.body.style.height = vh + 'px';
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                function setHeight() {
+                    var vh = window.innerHeight;
+                    document.documentElement.style.height = vh + 'px';
+                    document.body.style.height = vh + 'px';
+                }
+                setHeight();
+                window.addEventListener('resize', setHeight);
+                window.addEventListener('orientationchange', function() {
+                    setTimeout(setHeight, 100);
+                });
             }
-            setHeight();
-            window.addEventListener('resize', setHeight);
-            window.addEventListener('orientationchange', function() {
-                setTimeout(setHeight, 100);
-            });
         })();
     </script>
+</head>
+<body>
     <div class="logo">K A J</div>
     <div class="menu-button">
         <span></span>

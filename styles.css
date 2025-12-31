@@ -4,13 +4,11 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #353029;
-    overflow-x: hidden;
 }
 
 body {
@@ -20,12 +18,10 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    min-height: 100vh;
     height: 100vh;
     width: 100%;
-    margin: 0;
-    padding: 0;
     overflow-x: hidden;
-    position: relative;
 }
 
 .logo {
@@ -108,7 +104,6 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     html {
-        height: 100%;
         height: -webkit-fill-available;
     }
     
@@ -128,15 +123,15 @@ body {
     }
 }
 
-/* Safari specific */
+/* Safari iOS specific fix */
 @supports (-webkit-touch-callout: none) {
     html {
         height: -webkit-fill-available;
     }
     
     body {
-        height: -webkit-fill-available;
         min-height: -webkit-fill-available;
+        height: -webkit-fill-available;
     }
 }
 
