@@ -13,12 +13,6 @@ html, body {
 
 html {
     background-color: #353029;
-    height: 100%;
-    height: -webkit-fill-available;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
 }
 
 body {
@@ -29,12 +23,8 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
-    min-height: -webkit-fill-available;
     height: 100vh;
-    height: -webkit-fill-available;
     width: 100%;
-    margin: 0;
-    padding: 0;
     overflow-x: hidden;
 }
 
@@ -118,25 +108,13 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     html {
-        height: 100%;
         height: -webkit-fill-available;
-        position: fixed;
-        width: 100%;
-        overflow: hidden;
     }
     
     body {
         height: 100vh;
         height: -webkit-fill-available;
         background-attachment: scroll;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
     }
     
     .button-titles {
@@ -159,6 +137,41 @@ body {
         min-height: -webkit-fill-available;
         height: -webkit-fill-available;
     }
+}
+
+/* Cover safe areas on iPhone with brown color */
+@supports (padding: max(0px)) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+}
+
+/* Brown overlays for iOS Safari status bar and bottom areas */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background-color: #353029;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-bottom, 0px);
+    background-color: #353029;
+    z-index: 9999;
+    pointer-events: none;
 }
 
 @media (max-width: 480px) {
