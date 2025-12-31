@@ -124,8 +124,7 @@
             const regularImageItems = document.querySelectorAll('.regular-images .image-item');
             
             regularImageItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.stopPropagation();
+                item.addEventListener('click', function() {
                     const isExpanded = this.classList.contains('expanded');
                     
                     if (isExpanded) {
@@ -141,15 +140,17 @@
             });
             
             // Handle series images - only one series expanded at a time
-            const allSeries = document.querySelectorAll('.series');
+            const allSeriesContainers = document.querySelectorAll('.series');
             
-            allSeries.forEach(series => {
-                const seriesImagesContainer = series.querySelector('.series-images');
+            allSeriesContainers.forEach(seriesContainer => {
+                const seriesImagesContainer = seriesContainer.querySelector('.series-images');
+                if (!seriesImagesContainer) return;
+                
                 const seriesItems = seriesImagesContainer.querySelectorAll('.image-item');
                 
                 seriesItems.forEach(item => {
-                    item.addEventListener('click', function(e) {
-                        e.stopPropagation();
+                    item.addEventListener('click', function() {
+                        // Check if any image in this series is expanded
                         const isAnyExpanded = Array.from(seriesItems).some(img => img.classList.contains('expanded'));
                         
                         if (isAnyExpanded) {
@@ -159,20 +160,21 @@
                                 img.classList.add('collapsed');
                             });
                         } else {
-                            // Collapse all other series (but keep regular images expanded)
-                            allSeries.forEach(otherSeries => {
-                                if (otherSeries !== series) {
-                                    const otherSeriesImages = otherSeries.querySelector('.series-images');
-                                    const otherSeriesItems = otherSeriesImages.querySelectorAll('.image-item');
-                                    otherSeriesItems.forEach(img => {
-                                        if (img.classList.contains('expanded')) {
+                            // First, collapse all other series
+                            allSeriesContainers.forEach(otherSeriesContainer => {
+                                if (otherSeriesContainer !== seriesContainer) {
+                                    const otherSeriesImages = otherSeriesContainer.querySelector('.series-images');
+                                    if (otherSeriesImages) {
+                                        const otherSeriesItems = otherSeriesImages.querySelectorAll('.image-item');
+                                        otherSeriesItems.forEach(img => {
                                             img.classList.remove('expanded');
                                             img.classList.add('collapsed');
-                                        }
-                                    });
+                                        });
+                                    }
                                 }
                             });
-                            // Expand all images in this series
+                            
+                            // Then expand all images in this series
                             seriesItems.forEach(img => {
                                 img.classList.remove('collapsed');
                                 img.classList.add('expanded');
