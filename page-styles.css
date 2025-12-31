@@ -196,6 +196,12 @@ body {
 /* Canvas page specific: collapsed images at 80px */
 .canvas-page .image-item.collapsed img {
     height: 80px;
+    object-position: center;
+}
+
+/* Ensure collapsed images always center on all devices */
+.image-item.collapsed img {
+    object-position: center !important;
 }
 
 .image-title {
