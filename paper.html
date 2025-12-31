@@ -71,9 +71,23 @@
             const imageItems = document.querySelectorAll('.image-gallery .image-item');
             
             imageItems.forEach(item => {
+                let touchStartTime = 0;
+                let touchStartY = 0;
+                
                 const handleInteraction = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+                    // Prevent default only if it's not a scroll
+                    if (e.type === 'touchend') {
+                        const touch = e.changedTouches[0];
+                        const touchEndY = touch.clientY;
+                        const touchDuration = Date.now() - touchStartTime;
+                        const touchDistance = Math.abs(touchEndY - touchStartY);
+                        
+                        // If it was a scroll (long duration or large distance), don't handle as click
+                        if (touchDuration > 300 || touchDistance > 10) {
+                            return;
+                        }
+                        e.preventDefault();
+                    }
                     
                     const isExpanded = this.classList.contains('expanded');
                     
@@ -88,10 +102,17 @@
                     }
                 };
                 
+                // Track touch start for mobile
+                item.addEventListener('touchstart', function(e) {
+                    touchStartTime = Date.now();
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+                
+                // Handle click (works on both desktop and mobile)
                 item.addEventListener('click', handleInteraction);
-                item.addEventListener('touchend', function(e) {
-                    handleInteraction.call(this, e);
-                }, { passive: false });
+                
+                // Handle touch end (for better mobile support)
+                item.addEventListener('touchend', handleInteraction, { passive: false });
             });
         });
     </script>
