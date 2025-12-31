@@ -175,7 +175,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: 50% 50%;
     display: block;
     flex-shrink: 0;
     transition: object-fit 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -196,12 +196,12 @@ body {
 /* Canvas page specific: collapsed images at 80px */
 .canvas-page .image-item.collapsed img {
     height: 80px;
-    object-position: center;
+    object-position: 50% 50% !important;
 }
 
 /* Ensure collapsed images always center on all devices */
 .image-item.collapsed img {
-    object-position: center !important;
+    object-position: 50% 50% !important;
 }
 
 .image-title {
