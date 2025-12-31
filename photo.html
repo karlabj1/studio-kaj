@@ -65,14 +65,7 @@
                         this.classList.remove('expanded');
                         this.classList.add('collapsed');
                     } else {
-                        // Collapse any other expanded items first
-                        imageItems.forEach(otherItem => {
-                            if (otherItem !== this && otherItem.classList.contains('expanded')) {
-                                otherItem.classList.remove('expanded');
-                                otherItem.classList.add('collapsed');
-                            }
-                        });
-                        // Expand this item
+                        // Expand this item (allow multiple images to be expanded)
                         this.classList.remove('collapsed');
                         this.classList.add('expanded');
                     }

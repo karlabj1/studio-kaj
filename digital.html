@@ -132,14 +132,7 @@
                         this.classList.remove('expanded');
                         this.classList.add('collapsed');
                     } else {
-                        // Collapse all other items first
-                        document.querySelectorAll('.image-item').forEach(otherItem => {
-                            if (otherItem !== this && otherItem.classList.contains('expanded')) {
-                                otherItem.classList.remove('expanded');
-                                otherItem.classList.add('collapsed');
-                            }
-                        });
-                        // Expand this item
+                        // Expand this item (allow multiple regular images to be expanded)
                         this.classList.remove('collapsed');
                         this.classList.add('expanded');
                     }
@@ -163,11 +156,16 @@
                                 img.classList.add('collapsed');
                             });
                         } else {
-                            // Collapse all other items first
-                            document.querySelectorAll('.image-item').forEach(otherItem => {
-                                if (!seriesItems.includes(otherItem) && otherItem.classList.contains('expanded')) {
-                                    otherItem.classList.remove('expanded');
-                                    otherItem.classList.add('collapsed');
+                            // Collapse all other series (but keep regular images expanded)
+                            seriesImages.forEach(otherSeries => {
+                                if (otherSeries !== series) {
+                                    const otherSeriesItems = otherSeries.querySelectorAll('.image-item');
+                                    otherSeriesItems.forEach(img => {
+                                        if (img.classList.contains('expanded')) {
+                                            img.classList.remove('expanded');
+                                            img.classList.add('collapsed');
+                                        }
+                                    });
                                 }
                             });
                             // Expand all images in this series
