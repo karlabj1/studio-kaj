@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="page-styles.css?v=2">
+    <link rel="stylesheet" href="page-styles.css?v=3">
 </head>
 <body>
     <a href="index.html" class="logo">K A J</a>
@@ -47,17 +47,21 @@
         <div class="series">
             <div class="series-title">Chinese Ink</div>
             <div class="series-images">
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Chinese Ink 2">
                     <img src="assets/digi-chineseink2.webp" alt="Chinese Ink 2" loading="lazy">
+                    <div class="image-title">Chinese Ink 2</div>
                 </div>
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Chinese Ink 3">
                     <img src="assets/digi-chineseink3.webp" alt="Chinese Ink 3" loading="lazy">
+                    <div class="image-title">Chinese Ink 3</div>
                 </div>
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Chinese Ink 4">
                     <img src="assets/digi-chineseink4.webp" alt="Chinese Ink 4" loading="lazy">
+                    <div class="image-title">Chinese Ink 4</div>
                 </div>
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Chinese Ink 5">
                     <img src="assets/digi-chineseink5.webp" alt="Chinese Ink 5" loading="lazy">
+                    <div class="image-title">Chinese Ink 5</div>
                 </div>
             </div>
         </div>
@@ -66,8 +70,9 @@
         <div class="series">
             <div class="series-title">Free Fighting</div>
             <div class="series-images">
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Free Fighting">
                     <img src="assets/digi-freefighting.webp" alt="Free Fighting" loading="lazy">
+                    <div class="image-title">Free Fighting</div>
                 </div>
             </div>
         </div>
@@ -76,14 +81,17 @@
         <div class="series">
             <div class="series-title">Mr Shadow</div>
             <div class="series-images">
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Mr Shadow 1">
                     <img src="assets/digi-mrshadow1.webp" alt="Mr Shadow 1" loading="lazy">
+                    <div class="image-title">Mr Shadow 1</div>
                 </div>
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Mr Shadow 2">
                     <img src="assets/digi-mrshadow2.webp" alt="Mr Shadow 2" loading="lazy">
+                    <div class="image-title">Mr Shadow 2</div>
                 </div>
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Mr Shadow 3">
                     <img src="assets/digi-mrshadow3.webp" alt="Mr Shadow 3" loading="lazy">
+                    <div class="image-title">Mr Shadow 3</div>
                 </div>
             </div>
         </div>
@@ -92,8 +100,9 @@
         <div class="series">
             <div class="series-title">Mrs Pliff</div>
             <div class="series-images">
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Mrs Pliff">
                     <img src="assets/digi-mrspliff.webp" alt="Mrs Pliff" loading="lazy">
+                    <div class="image-title">Mrs Pliff</div>
                 </div>
             </div>
         </div>
@@ -102,93 +111,70 @@
         <div class="series">
             <div class="series-title">Untitled</div>
             <div class="series-images">
-                <div class="image-item collapsed">
+                <div class="image-item collapsed" data-title="Untitled">
                     <img src="assets/digi-untitled.webp" alt="Untitled" loading="lazy">
+                    <div class="image-title">Untitled</div>
                 </div>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Handle regular images (single expand/collapse)
-            const regularItems = document.querySelectorAll('.regular-images .image-item');
-            regularItems.forEach(item => {
+            // Handle regular images
+            const regularImageItems = document.querySelectorAll('.regular-images .image-item');
+            
+            regularImageItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const isExpanded = this.classList.contains('expanded');
                     
-                    // Collapse any other expanded regular items
-                    regularItems.forEach(otherItem => {
-                        if (otherItem !== this && otherItem.classList.contains('expanded')) {
-                            otherItem.classList.remove('expanded');
-                            otherItem.classList.add('collapsed');
-                        }
-                    });
-                    
-                    // Collapse any expanded series
-                    document.querySelectorAll('.series').forEach(series => {
-                        if (series.classList.contains('expanded')) {
-                            const seriesImages = series.querySelectorAll('.image-item');
-                            seriesImages.forEach(img => {
-                                img.classList.remove('expanded');
-                                img.classList.add('collapsed');
-                            });
-                            series.classList.remove('expanded');
-                        }
-                    });
-                    
                     if (isExpanded) {
+                        // Collapse
                         this.classList.remove('expanded');
                         this.classList.add('collapsed');
                     } else {
+                        // Collapse all other items first
+                        document.querySelectorAll('.image-item').forEach(otherItem => {
+                            if (otherItem !== this && otherItem.classList.contains('expanded')) {
+                                otherItem.classList.remove('expanded');
+                                otherItem.classList.add('collapsed');
+                            }
+                        });
+                        // Expand this item
                         this.classList.remove('collapsed');
                         this.classList.add('expanded');
                     }
                 });
             });
             
-            // Handle series images (expand/collapse entire series)
-            const series = document.querySelectorAll('.series');
-            series.forEach(seriesContainer => {
-                const seriesImages = seriesContainer.querySelectorAll('.image-item');
+            // Handle series images
+            const seriesImages = document.querySelectorAll('.series-images');
+            
+            seriesImages.forEach(series => {
+                const seriesItems = series.querySelectorAll('.image-item');
                 
-                seriesImages.forEach(item => {
+                seriesItems.forEach(item => {
                     item.addEventListener('click', function() {
-                        const isSeriesExpanded = seriesContainer.classList.contains('expanded');
+                        const isAnyExpanded = Array.from(seriesItems).some(img => img.classList.contains('expanded'));
                         
-                        // Collapse any other expanded series
-                        series.forEach(otherSeries => {
-                            if (otherSeries !== seriesContainer && otherSeries.classList.contains('expanded')) {
-                                const otherImages = otherSeries.querySelectorAll('.image-item');
-                                otherImages.forEach(img => {
-                                    img.classList.remove('expanded');
-                                    img.classList.add('collapsed');
-                                });
-                                otherSeries.classList.remove('expanded');
-                            }
-                        });
-                        
-                        // Collapse any expanded regular items
-                        regularItems.forEach(regularItem => {
-                            if (regularItem.classList.contains('expanded')) {
-                                regularItem.classList.remove('expanded');
-                                regularItem.classList.add('collapsed');
-                            }
-                        });
-                        
-                        if (isSeriesExpanded) {
-                            // Collapse entire series
-                            seriesImages.forEach(img => {
+                        if (isAnyExpanded) {
+                            // Collapse all images in this series
+                            seriesItems.forEach(img => {
                                 img.classList.remove('expanded');
                                 img.classList.add('collapsed');
                             });
-                            seriesContainer.classList.remove('expanded');
                         } else {
-                            // Expand entire series
-                            seriesImages.forEach(img => {
+                            // Collapse all other items first
+                            document.querySelectorAll('.image-item').forEach(otherItem => {
+                                if (!seriesItems.includes(otherItem) && otherItem.classList.contains('expanded')) {
+                                    otherItem.classList.remove('expanded');
+                                    otherItem.classList.add('collapsed');
+                                }
+                            });
+                            // Expand all images in this series
+                            seriesItems.forEach(img => {
                                 img.classList.remove('collapsed');
                                 img.classList.add('expanded');
                             });
-                            seriesContainer.classList.add('expanded');
                         }
                     });
                 });
