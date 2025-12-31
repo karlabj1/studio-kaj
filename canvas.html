@@ -14,11 +14,20 @@
     <link rel="preload" as="image" href="assets/canvas-freefight3.webp" fetchpriority="high">
     <link rel="stylesheet" href="page-styles.css?v=8">
 </head>
-<body>
+<body class="canvas-page">
     <a href="index.html" class="logo">K A J</a>
-    <div class="menu-button">
+    <div class="menu-button" id="menuButton">
         <span></span>
         <span></span>
+    </div>
+    <div class="menu-popup" id="menuPopup">
+        <div class="menu-popup-content">
+            <a href="canvas.html" class="menu-popup-item">CANVAS</a>
+            <a href="paper.html" class="menu-popup-item">PAPER</a>
+            <a href="photo.html" class="menu-popup-item">PHOTO</a>
+            <a href="digital.html" class="menu-popup-item">DIGITAL</a>
+            <a href="chair.html" class="menu-popup-item">CHAIR</a>
+        </div>
     </div>
     <div class="image-gallery">
         <div class="image-item collapsed" data-title="Free Fight">
@@ -35,6 +44,7 @@
         </div>
     </div>
     <script src="gallery.js" defer></script>
+    <script src="menu.js" defer></script>
 </body>
 </html>
 
