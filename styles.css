@@ -228,6 +228,7 @@ body {
     
     .title-item {
         font-size: clamp(14px, 2.5vw, 18px);
+        font-weight: 300;
     }
 }
 
@@ -251,5 +252,6 @@ body {
     
     .title-item {
         font-size: clamp(12px, 2vw, 16px);
+        font-weight: 300;
     }
 }
