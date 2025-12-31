@@ -120,11 +120,12 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Handle regular images
+            // Handle regular images - allow multiple to be expanded
             const regularImageItems = document.querySelectorAll('.regular-images .image-item');
             
             regularImageItems.forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     const isExpanded = this.classList.contains('expanded');
                     
                     if (isExpanded) {
@@ -139,14 +140,16 @@
                 });
             });
             
-            // Handle series images
-            const seriesImages = document.querySelectorAll('.series-images');
+            // Handle series images - only one series expanded at a time
+            const allSeries = document.querySelectorAll('.series');
             
-            seriesImages.forEach(series => {
-                const seriesItems = series.querySelectorAll('.image-item');
+            allSeries.forEach(series => {
+                const seriesImagesContainer = series.querySelector('.series-images');
+                const seriesItems = seriesImagesContainer.querySelectorAll('.image-item');
                 
                 seriesItems.forEach(item => {
-                    item.addEventListener('click', function() {
+                    item.addEventListener('click', function(e) {
+                        e.stopPropagation();
                         const isAnyExpanded = Array.from(seriesItems).some(img => img.classList.contains('expanded'));
                         
                         if (isAnyExpanded) {
@@ -157,9 +160,10 @@
                             });
                         } else {
                             // Collapse all other series (but keep regular images expanded)
-                            seriesImages.forEach(otherSeries => {
+                            allSeries.forEach(otherSeries => {
                                 if (otherSeries !== series) {
-                                    const otherSeriesItems = otherSeries.querySelectorAll('.image-item');
+                                    const otherSeriesImages = otherSeries.querySelector('.series-images');
+                                    const otherSeriesItems = otherSeriesImages.querySelectorAll('.image-item');
                                     otherSeriesItems.forEach(img => {
                                         if (img.classList.contains('expanded')) {
                                             img.classList.remove('expanded');
