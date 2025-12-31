@@ -93,6 +93,8 @@ body {
     display: block;
     flex-shrink: 0;
     transition: object-fit 0.5s ease;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 .image-item.expanded img {
