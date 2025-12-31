@@ -65,28 +65,30 @@ body {
 
 .image-item {
     width: 100%;
-    height: 80px;
+    min-height: 80px;
+    max-height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     overflow: hidden;
     cursor: pointer;
-    transition: height 0.15s ease-out;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    will-change: max-height;
 }
 
 .image-item.collapsed {
-    height: 80px;
+    max-height: 80px;
 }
 
 .image-item.expanded {
-    height: auto;
+    max-height: 2000px;
 }
 
 .image-item img {
@@ -95,7 +97,7 @@ body {
     object-fit: cover;
     display: block;
     flex-shrink: 0;
-    transition: object-fit 0.15s ease-out;
+    transition: object-fit 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     -webkit-transform: translateZ(0);
@@ -104,6 +106,7 @@ body {
 
 .image-item.expanded img {
     height: auto;
+    min-height: 80px;
     object-fit: contain;
     width: 100%;
 }
@@ -118,7 +121,7 @@ body {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.15s ease-out, max-height 0.15s ease-out, padding 0.15s ease-out;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .image-item.expanded .image-title {
@@ -158,15 +161,15 @@ body {
 }
 
 .series-images .image-item {
-    height: 80px;
+    max-height: 80px;
 }
 
 .series-images .image-item.collapsed {
-    height: 80px;
+    max-height: 80px;
 }
 
 .series-images .image-item.expanded {
-    height: auto;
+    max-height: 2000px;
 }
 
 .series-images .image-item.expanded img {
@@ -182,11 +185,11 @@ body {
 }
 
 .regular-images .image-item {
-    height: 80px;
+    max-height: 80px;
 }
 
 .regular-images .image-item.collapsed {
-    height: 80px;
+    max-height: 80px;
 }
 
 /* Chair page 2-column layout */
