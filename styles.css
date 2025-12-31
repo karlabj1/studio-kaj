@@ -11,6 +11,10 @@ html, body {
     padding: 0;
 }
 
+html {
+    background-color: #353029;
+}
+
 body {
     background-color: #353029;
     background-image: url('assets/background-image.webp');
