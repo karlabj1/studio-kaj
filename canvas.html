@@ -19,16 +19,47 @@
         <span></span>
     </div>
     <div class="image-gallery">
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Free Fight">
             <img src="assets/canvas-freefight3.webp" alt="Free Fight" fetchpriority="high">
+            <div class="image-title">Free Fight</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Palm">
             <img src="assets/canvas-palm1.webp" alt="Palm" loading="lazy">
+            <div class="image-title">Palm</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Smirk">
             <img src="assets/canvas-smirk2.webp" alt="Smirk" loading="lazy">
+            <div class="image-title">Smirk</div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageItems = document.querySelectorAll('.image-gallery .image-item');
+            
+            imageItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const isExpanded = this.classList.contains('expanded');
+                    
+                    if (isExpanded) {
+                        // Collapse
+                        this.classList.remove('expanded');
+                        this.classList.add('collapsed');
+                    } else {
+                        // Collapse any other expanded items first
+                        imageItems.forEach(otherItem => {
+                            if (otherItem !== this && otherItem.classList.contains('expanded')) {
+                                otherItem.classList.remove('expanded');
+                                otherItem.classList.add('collapsed');
+                            }
+                        });
+                        // Expand this item
+                        this.classList.remove('collapsed');
+                        this.classList.add('expanded');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 

@@ -19,40 +19,79 @@
         <span></span>
     </div>
     <div class="image-gallery">
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 1">
             <img src="assets/paper1.webp" alt="Paper 1" fetchpriority="high">
+            <div class="image-title">Paper 1</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 2">
             <img src="assets/paper2.webp" alt="Paper 2" loading="lazy">
+            <div class="image-title">Paper 2</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 3">
             <img src="assets/paper3.webp" alt="Paper 3" loading="lazy">
+            <div class="image-title">Paper 3</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 4">
             <img src="assets/paper4.webp" alt="Paper 4" loading="lazy">
+            <div class="image-title">Paper 4</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 5">
             <img src="assets/paper5.webp" alt="Paper 5" loading="lazy">
+            <div class="image-title">Paper 5</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 6">
             <img src="assets/paper6.webp" alt="Paper 6" loading="lazy">
+            <div class="image-title">Paper 6</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 7">
             <img src="assets/paper7.webp" alt="Paper 7" loading="lazy">
+            <div class="image-title">Paper 7</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 8">
             <img src="assets/paper8.webp" alt="Paper 8" loading="lazy">
+            <div class="image-title">Paper 8</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 9">
             <img src="assets/paper9.webp" alt="Paper 9" loading="lazy">
+            <div class="image-title">Paper 9</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 10">
             <img src="assets/paper10.webp" alt="Paper 10" loading="lazy">
+            <div class="image-title">Paper 10</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Paper 11">
             <img src="assets/paper11.webp" alt="Paper 11" loading="lazy">
+            <div class="image-title">Paper 11</div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageItems = document.querySelectorAll('.image-gallery .image-item');
+            
+            imageItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const isExpanded = this.classList.contains('expanded');
+                    
+                    if (isExpanded) {
+                        // Collapse
+                        this.classList.remove('expanded');
+                        this.classList.add('collapsed');
+                    } else {
+                        // Collapse any other expanded items first
+                        imageItems.forEach(otherItem => {
+                            if (otherItem !== this && otherItem.classList.contains('expanded')) {
+                                otherItem.classList.remove('expanded');
+                                otherItem.classList.add('collapsed');
+                            }
+                        });
+                        // Expand this item
+                        this.classList.remove('collapsed');
+                        this.classList.add('expanded');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 

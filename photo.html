@@ -19,31 +19,67 @@
         <span></span>
     </div>
     <div class="image-gallery">
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 1">
             <img src="assets/photo1.webp" alt="Photo 1" fetchpriority="high">
+            <div class="image-title">Photo 1</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 2">
             <img src="assets/photo2.webp" alt="Photo 2" loading="lazy">
+            <div class="image-title">Photo 2</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 3">
             <img src="assets/photo3.webp" alt="Photo 3" loading="lazy">
+            <div class="image-title">Photo 3</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 4">
             <img src="assets/photo4.webp" alt="Photo 4" loading="lazy">
+            <div class="image-title">Photo 4</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 5">
             <img src="assets/photo5.webp" alt="Photo 5" loading="lazy">
+            <div class="image-title">Photo 5</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 6">
             <img src="assets/photo6.webp" alt="Photo 6" loading="lazy">
+            <div class="image-title">Photo 6</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 7">
             <img src="assets/photo7.webp" alt="Photo 7" loading="lazy">
+            <div class="image-title">Photo 7</div>
         </div>
-        <div class="image-item">
+        <div class="image-item collapsed" data-title="Photo 8">
             <img src="assets/photo8.webp" alt="Photo 8" loading="lazy">
+            <div class="image-title">Photo 8</div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageItems = document.querySelectorAll('.image-gallery .image-item');
+            
+            imageItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const isExpanded = this.classList.contains('expanded');
+                    
+                    if (isExpanded) {
+                        // Collapse
+                        this.classList.remove('expanded');
+                        this.classList.add('collapsed');
+                    } else {
+                        // Collapse any other expanded items first
+                        imageItems.forEach(otherItem => {
+                            if (otherItem !== this && otherItem.classList.contains('expanded')) {
+                                otherItem.classList.remove('expanded');
+                                otherItem.classList.add('collapsed');
+                            }
+                        });
+                        // Expand this item
+                        this.classList.remove('collapsed');
+                        this.classList.add('expanded');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 
