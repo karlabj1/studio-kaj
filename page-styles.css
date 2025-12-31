@@ -60,6 +60,7 @@ body {
     min-height: 100vh;
     overflow-y: auto;
     padding-top: 60px;
+    contain: layout style;
 }
 
 .image-item {
@@ -71,11 +72,13 @@ body {
     justify-content: flex-start;
     overflow: hidden;
     cursor: pointer;
-    transition: height 0.5s ease;
+    transition: height 0.15s ease-out;
     position: relative;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .image-item.collapsed {
@@ -92,9 +95,11 @@ body {
     object-fit: cover;
     display: block;
     flex-shrink: 0;
-    transition: object-fit 0.5s ease;
+    transition: object-fit 0.15s ease-out;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .image-item.expanded img {
@@ -113,7 +118,7 @@ body {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
+    transition: opacity 0.15s ease-out, max-height 0.15s ease-out, padding 0.15s ease-out;
 }
 
 .image-item.expanded .image-title {
