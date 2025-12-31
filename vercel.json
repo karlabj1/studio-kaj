@@ -10,7 +10,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0"
+          "value": "no-cache, no-store, must-revalidate, max-age=0, private"
         },
         {
           "key": "Pragma",
@@ -23,32 +23,6 @@
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.(html|htm))",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0, private"
-        },
-        {
-          "key": "Pragma",
-          "value": "no-cache"
-        },
-        {
-          "key": "Expires",
-          "value": "0"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.(css|js))",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0"
         }
       ]
     }
