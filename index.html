@@ -25,5 +25,27 @@
         <a href="photo.html" class="title-item">PHOTO</a>
         <a href="chair.html" class="title-item">CHAIR</a>
     </div>
+    <script>
+        // Fix for Safari iOS viewport height
+        function setViewportHeight() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        window.addEventListener('orientationchange', setViewportHeight);
+        // Also update on scroll for Safari's dynamic address bar
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    setViewportHeight();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
 </body>
 </html>
