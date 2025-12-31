@@ -222,22 +222,29 @@ body {
     }
     
     /* Ensure images are properly collapsed on mobile */
-    .image-item {
+    .image-gallery .image-item {
         height: 80px !important;
-    }
-    
-    .image-item.collapsed {
-        height: 80px !important;
-    }
-    
-    .image-item.expanded {
-        height: auto;
-    }
-    
-    /* Better touch targets on mobile */
-    .image-item {
         min-height: 80px;
         -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .image-gallery .image-item.collapsed {
+        height: 80px !important;
+        min-height: 80px;
+    }
+    
+    .image-gallery .image-item.expanded {
+        height: auto !important;
+        min-height: auto;
+    }
+    
+    .image-gallery .image-item img {
+        height: 100%;
+    }
+    
+    .image-gallery .image-item.expanded img {
+        height: auto;
     }
 }
 

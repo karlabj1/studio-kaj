@@ -58,7 +58,10 @@
             const imageItems = document.querySelectorAll('.image-gallery .image-item');
             
             imageItems.forEach(item => {
-                item.addEventListener('click', function() {
+                const handleInteraction = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     const isExpanded = this.classList.contains('expanded');
                     
                     if (isExpanded) {
@@ -70,7 +73,12 @@
                         this.classList.remove('collapsed');
                         this.classList.add('expanded');
                     }
-                });
+                };
+                
+                item.addEventListener('click', handleInteraction);
+                item.addEventListener('touchend', function(e) {
+                    handleInteraction.call(this, e);
+                }, { passive: false });
             });
         });
     </script>

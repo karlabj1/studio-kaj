@@ -109,9 +109,11 @@
             });
             
             imageItems.forEach(item => {
-                // Use both click and touchstart for better mobile support
+                // Handle both click and touch for mobile
                 const handleInteraction = function(e) {
+                    e.preventDefault();
                     e.stopPropagation();
+                    
                     const isRegular = this.getAttribute('data-regular') === 'true';
                     const seriesName = this.getAttribute('data-series');
                     
@@ -156,8 +158,11 @@
                     }
                 };
                 
+                // Use click for desktop, touchend for mobile (more reliable than touchstart)
                 item.addEventListener('click', handleInteraction);
-                item.addEventListener('touchstart', handleInteraction, { passive: true });
+                item.addEventListener('touchend', function(e) {
+                    handleInteraction.call(this, e);
+                }, { passive: false });
             });
         });
     </script>
