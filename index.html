@@ -9,10 +9,10 @@
     <title>KAJ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet"></noscript>
     <link rel="preload" as="image" href="assets/background-image.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
     <script>
         // Safari mobile viewport fix - run immediately
         (function() {
@@ -48,7 +48,7 @@
 </head>
 <body>
     <div class="logo">K A J</div>
-    <div class="menu-button">
+    <div class="menu-button" id="menuButton">
         <span></span>
         <span></span>
     </div>
@@ -59,5 +59,42 @@
         <a href="photo.html" class="title-item">PHOTO</a>
         <a href="chair.html" class="title-item">CHAIR</a>
     </div>
+    <div class="menu-popup" id="menuPopup">
+        <div class="menu-popup-content">
+            <a href="canvas.html" class="menu-popup-item">CANVAS</a>
+            <a href="paper.html" class="menu-popup-item">PAPER</a>
+            <a href="photo.html" class="menu-popup-item">PHOTO</a>
+            <a href="digital.html" class="menu-popup-item">DIGITAL</a>
+            <a href="chair.html" class="menu-popup-item">CHAIR</a>
+        </div>
+    </div>
+    <script>
+        (function() {
+            const menuButton = document.getElementById('menuButton');
+            const menuPopup = document.getElementById('menuPopup');
+            
+            menuButton.addEventListener('click', function() {
+                menuPopup.classList.toggle('active');
+                menuButton.classList.toggle('active');
+            });
+            
+            // Close popup when clicking on a link
+            const popupItems = menuPopup.querySelectorAll('.menu-popup-item');
+            popupItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuPopup.classList.remove('active');
+                    menuButton.classList.remove('active');
+                });
+            });
+            
+            // Close popup when clicking outside
+            menuPopup.addEventListener('click', function(e) {
+                if (e.target === menuPopup) {
+                    menuPopup.classList.remove('active');
+                    menuButton.classList.remove('active');
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
