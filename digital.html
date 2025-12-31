@@ -101,9 +101,10 @@
             const imageItems = document.querySelectorAll('.image-gallery .image-item');
             
             imageItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const isRegular = this.dataset.regular === 'true';
-                    const seriesName = this.dataset.series;
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isRegular = this.getAttribute('data-regular') === 'true';
+                    const seriesName = this.getAttribute('data-series');
                     
                     if (isRegular) {
                         // Regular image - toggle individually, allow multiple
@@ -117,8 +118,8 @@
                         }
                     } else if (seriesName) {
                         // Series image - expand/collapse entire series
-                        const seriesItems = document.querySelectorAll(`[data-series="${seriesName}"]`);
-                        const isAnyExpanded = Array.from(seriesItems).some(img => img.classList.contains('expanded'));
+                        const seriesItems = Array.from(document.querySelectorAll(`[data-series="${seriesName}"]`));
+                        const isAnyExpanded = seriesItems.some(img => img.classList.contains('expanded'));
                         
                         if (isAnyExpanded) {
                             // Collapse this series
@@ -128,8 +129,8 @@
                             });
                         } else {
                             // Collapse all other series first
-                            const allSeries = document.querySelectorAll('[data-series]');
-                            allSeries.forEach(img => {
+                            const allSeriesItems = Array.from(document.querySelectorAll('[data-series]'));
+                            allSeriesItems.forEach(img => {
                                 if (!seriesItems.includes(img) && img.classList.contains('expanded')) {
                                     img.classList.remove('expanded');
                                     img.classList.add('collapsed');
