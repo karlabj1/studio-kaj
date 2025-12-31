@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet"></noscript>
-    <link rel="stylesheet" href="page-styles.css?v=4">
+    <link rel="stylesheet" href="page-styles.css?v=2">
 </head>
 <body>
     <a href="index.html" class="logo">K A J</a>
@@ -19,37 +19,14 @@
         <span></span>
         <span></span>
     </div>
-    <div class="image-gallery">
-        <div class="image-item collapsed" data-title="Chair 1">
+    <div class="chair-gallery">
+        <div class="chair-image">
             <img src="assets/chair1.webp" alt="Chair 1" fetchpriority="high">
-            <div class="image-title">Chair 1</div>
         </div>
-        <div class="image-item collapsed" data-title="Chair 2">
+        <div class="chair-image">
             <img src="assets/chair2.webp" alt="Chair 2" loading="lazy">
-            <div class="image-title">Chair 2</div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const imageItems = document.querySelectorAll('.image-gallery .image-item');
-            
-            imageItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const isExpanded = this.classList.contains('expanded');
-                    
-                    if (isExpanded) {
-                        // Collapse
-                        this.classList.remove('expanded');
-                        this.classList.add('collapsed');
-                    } else {
-                        // Expand this item (allow multiple images to be expanded)
-                        this.classList.remove('collapsed');
-                        this.classList.add('expanded');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
 

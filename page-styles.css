@@ -74,6 +74,8 @@ body {
     transition: height 0.5s ease;
     position: relative;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .image-item.collapsed {
@@ -180,43 +182,62 @@ body {
     height: 80px;
 }
 
-/* Mobile responsive - uniform layout for all pages */
+/* Chair page 2-column layout */
+.chair-gallery {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    padding-top: 60px;
+    overflow: hidden;
+}
+
+.chair-image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.chair-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Mobile responsive for chair page */
 @media (max-width: 768px) {
-    .logo {
-        font-size: 20px;
-        padding: 15px;
-        height: 50px;
+    .chair-gallery {
+        flex-direction: column;
+        height: auto;
+        min-height: 200vh;
     }
     
-    .menu-button {
-        padding: 15px;
-        height: 50px;
+    .chair-image {
+        width: 100%;
+        height: 100vh;
     }
     
-    .image-gallery {
-        padding-top: 50px;
-    }
-    
+    /* Ensure images are properly collapsed on mobile */
     .image-item {
-        height: 80px;
+        height: 80px !important;
     }
     
     .image-item.collapsed {
-        height: 80px;
+        height: 80px !important;
     }
     
-    .series-title {
-        font-size: 16px;
-        padding: 15px;
+    .image-item.expanded {
+        height: auto;
     }
     
-    .image-title {
-        font-size: 14px;
-        padding: 0 15px;
-    }
-    
-    .image-item.expanded .image-title {
-        padding: 15px;
+    /* Better touch targets on mobile */
+    .image-item {
+        min-height: 80px;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 
