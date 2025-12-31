@@ -56,7 +56,6 @@
     </div>
     <script>
         (function() {
-            // Run immediately, don't wait for DOMContentLoaded
             function initGallery() {
                 const imageItems = document.querySelectorAll('.image-gallery .image-item');
                 
@@ -68,67 +67,59 @@
                 });
                 
                 imageItems.forEach(item => {
-                    let touchStartTime = 0;
                     let touchStartY = 0;
-                    let hasScrolled = false;
+                    let touchMoved = false;
                     
                     const handleInteraction = function(e) {
-                        // Prevent default only if it's not a scroll
+                        // For touch events, only prevent if it wasn't a scroll
+                        if (e.type === 'touchend' && touchMoved) {
+                            touchMoved = false;
+                            return;
+                        }
+                        
                         if (e.type === 'touchend') {
-                            const touch = e.changedTouches[0];
-                            const touchEndY = touch.clientY;
-                            const touchDuration = Date.now() - touchStartTime;
-                            const touchDistance = Math.abs(touchEndY - touchStartY);
-                            
-                            // If it was a scroll (long duration or large distance), don't handle as click
-                            if (hasScrolled || touchDuration > 300 || touchDistance > 10) {
-                                hasScrolled = false;
-                                return;
-                            }
                             e.preventDefault();
-                            e.stopPropagation();
                         }
                         
                         const isExpanded = this.classList.contains('expanded');
                         
                         if (isExpanded) {
-                            // Collapse
                             this.classList.remove('expanded');
                             this.classList.add('collapsed');
                         } else {
-                            // Expand this item (allow multiple images to be expanded)
                             this.classList.remove('collapsed');
                             this.classList.add('expanded');
                         }
                     };
                     
-                    // Track touch start for mobile
+                    // Track touch start
                     item.addEventListener('touchstart', function(e) {
-                        touchStartTime = Date.now();
                         touchStartY = e.touches[0].clientY;
-                        hasScrolled = false;
+                        touchMoved = false;
                     }, { passive: true });
                     
-                    // Track scrolling
-                    item.addEventListener('touchmove', function() {
-                        hasScrolled = true;
+                    // Track if user is scrolling
+                    item.addEventListener('touchmove', function(e) {
+                        const touchY = e.touches[0].clientY;
+                        if (Math.abs(touchY - touchStartY) > 5) {
+                            touchMoved = true;
+                        }
                     }, { passive: true });
                     
                     // Handle click (works on both desktop and mobile)
                     item.addEventListener('click', handleInteraction);
                     
-                    // Handle touch end (for better mobile support)
+                    // Handle touch end
                     item.addEventListener('touchend', handleInteraction, { passive: false });
                 });
             }
             
-            // Try immediately, then on DOMContentLoaded, then on load
+            // Initialize
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', initGallery);
             } else {
                 initGallery();
             }
-            window.addEventListener('load', initGallery);
         })();
     </script>
 </body>
