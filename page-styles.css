@@ -224,20 +224,3 @@ body {
     }
 }
 
-.version-badge {
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    background-color: #ff0000 !important;
-    color: #ffffff !important;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    z-index: 10000;
-    pointer-events: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    border: 2px solid #ffffff;
-}
-

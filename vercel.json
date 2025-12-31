@@ -2,15 +2,15 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "framework": null,
-  "cleanUrls": false,
+  "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/(.*\\.(html|htm))",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0"
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
         },
         {
           "key": "Pragma",
@@ -23,14 +23,23 @@
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(html|htm))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0, private"
         },
         {
-          "key": "CDN-Cache-Control",
+          "key": "Pragma",
           "value": "no-cache"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "no-cache"
+          "key": "Expires",
+          "value": "0"
         }
       ]
     },
@@ -39,24 +48,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0"
-        },
-        {
-          "key": "Pragma",
-          "value": "no-cache"
-        },
-        {
-          "key": "CDN-Cache-Control",
-          "value": "no-cache"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0"
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
         }
       ]
     }
