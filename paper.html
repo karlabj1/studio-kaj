@@ -67,54 +67,81 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const imageItems = document.querySelectorAll('.image-gallery .image-item');
-            
-            imageItems.forEach(item => {
-                let touchStartTime = 0;
-                let touchStartY = 0;
+        (function() {
+            // Run immediately, don't wait for DOMContentLoaded
+            function initGallery() {
+                const imageItems = document.querySelectorAll('.image-gallery .image-item');
                 
-                const handleInteraction = function(e) {
-                    // Prevent default only if it's not a scroll
-                    if (e.type === 'touchend') {
-                        const touch = e.changedTouches[0];
-                        const touchEndY = touch.clientY;
-                        const touchDuration = Date.now() - touchStartTime;
-                        const touchDistance = Math.abs(touchEndY - touchStartY);
-                        
-                        // If it was a scroll (long duration or large distance), don't handle as click
-                        if (touchDuration > 300 || touchDistance > 10) {
-                            return;
+                // Ensure all images start collapsed
+                imageItems.forEach(item => {
+                    if (!item.classList.contains('expanded')) {
+                        item.classList.add('collapsed');
+                    }
+                });
+                
+                imageItems.forEach(item => {
+                    let touchStartTime = 0;
+                    let touchStartY = 0;
+                    let hasScrolled = false;
+                    
+                    const handleInteraction = function(e) {
+                        // Prevent default only if it's not a scroll
+                        if (e.type === 'touchend') {
+                            const touch = e.changedTouches[0];
+                            const touchEndY = touch.clientY;
+                            const touchDuration = Date.now() - touchStartTime;
+                            const touchDistance = Math.abs(touchEndY - touchStartY);
+                            
+                            // If it was a scroll (long duration or large distance), don't handle as click
+                            if (hasScrolled || touchDuration > 300 || touchDistance > 10) {
+                                hasScrolled = false;
+                                return;
+                            }
+                            e.preventDefault();
+                            e.stopPropagation();
                         }
-                        e.preventDefault();
-                    }
+                        
+                        const isExpanded = this.classList.contains('expanded');
+                        
+                        if (isExpanded) {
+                            // Collapse
+                            this.classList.remove('expanded');
+                            this.classList.add('collapsed');
+                        } else {
+                            // Expand this item (allow multiple images to be expanded)
+                            this.classList.remove('collapsed');
+                            this.classList.add('expanded');
+                        }
+                    };
                     
-                    const isExpanded = this.classList.contains('expanded');
+                    // Track touch start for mobile
+                    item.addEventListener('touchstart', function(e) {
+                        touchStartTime = Date.now();
+                        touchStartY = e.touches[0].clientY;
+                        hasScrolled = false;
+                    }, { passive: true });
                     
-                    if (isExpanded) {
-                        // Collapse
-                        this.classList.remove('expanded');
-                        this.classList.add('collapsed');
-                    } else {
-                        // Expand this item (allow multiple images to be expanded)
-                        this.classList.remove('collapsed');
-                        this.classList.add('expanded');
-                    }
-                };
-                
-                // Track touch start for mobile
-                item.addEventListener('touchstart', function(e) {
-                    touchStartTime = Date.now();
-                    touchStartY = e.touches[0].clientY;
-                }, { passive: true });
-                
-                // Handle click (works on both desktop and mobile)
-                item.addEventListener('click', handleInteraction);
-                
-                // Handle touch end (for better mobile support)
-                item.addEventListener('touchend', handleInteraction, { passive: false });
-            });
-        });
+                    // Track scrolling
+                    item.addEventListener('touchmove', function() {
+                        hasScrolled = true;
+                    }, { passive: true });
+                    
+                    // Handle click (works on both desktop and mobile)
+                    item.addEventListener('click', handleInteraction);
+                    
+                    // Handle touch end (for better mobile support)
+                    item.addEventListener('touchend', handleInteraction, { passive: false });
+                });
+            }
+            
+            // Try immediately, then on DOMContentLoaded, then on load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initGallery);
+            } else {
+                initGallery();
+            }
+            window.addEventListener('load', initGallery);
+        })();
     </script>
 </body>
 </html>
