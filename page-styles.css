@@ -138,6 +138,8 @@ body {
     padding: 20px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    width: 100%;
+    display: block;
 }
 
 .series-images {
