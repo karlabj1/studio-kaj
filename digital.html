@@ -101,9 +101,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             const imageItems = document.querySelectorAll('.image-gallery .image-item');
             
+            // Ensure all images start collapsed
             imageItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
+                if (!item.classList.contains('expanded')) {
+                    item.classList.add('collapsed');
+                }
+            });
+            
+            imageItems.forEach(item => {
+                // Use both click and touchstart for better mobile support
+                const handleInteraction = function(e) {
+                    e.stopPropagation();
                     const isRegular = this.getAttribute('data-regular') === 'true';
                     const seriesName = this.getAttribute('data-series');
                     
@@ -146,7 +154,10 @@
                             });
                         }
                     }
-                });
+                };
+                
+                item.addEventListener('click', handleInteraction);
+                item.addEventListener('touchstart', handleInteraction, { passive: true });
             });
         });
     </script>

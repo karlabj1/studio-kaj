@@ -74,6 +74,8 @@ body {
     transition: height 0.5s ease;
     position: relative;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .image-item.collapsed {
@@ -217,6 +219,25 @@ body {
     .chair-image {
         width: 100%;
         height: 100vh;
+    }
+    
+    /* Ensure images are properly collapsed on mobile */
+    .image-item {
+        height: 80px !important;
+    }
+    
+    .image-item.collapsed {
+        height: 80px !important;
+    }
+    
+    .image-item.expanded {
+        height: auto;
+    }
+    
+    /* Better touch targets on mobile */
+    .image-item {
+        min-height: 80px;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 
