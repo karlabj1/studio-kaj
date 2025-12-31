@@ -128,10 +128,11 @@
                                 img.classList.add('collapsed');
                             });
                         } else {
-                            // Collapse all other series first
+                            // Collapse all other series first (by checking their data-series attribute)
                             const allSeriesItems = Array.from(document.querySelectorAll('[data-series]'));
                             allSeriesItems.forEach(img => {
-                                if (!seriesItems.includes(img) && img.classList.contains('expanded')) {
+                                const imgSeries = img.getAttribute('data-series');
+                                if (imgSeries !== seriesName && img.classList.contains('expanded')) {
                                     img.classList.remove('expanded');
                                     img.classList.add('collapsed');
                                 }
