@@ -222,31 +222,5 @@ body {
         width: 100%;
         height: 100vh;
     }
-    
-    /* Ensure images are properly collapsed on mobile */
-    .image-gallery .image-item {
-        height: 80px !important;
-        min-height: 80px;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-    
-    .image-gallery .image-item.collapsed {
-        height: 80px !important;
-        min-height: 80px;
-    }
-    
-    .image-gallery .image-item.expanded {
-        height: auto !important;
-        min-height: auto;
-    }
-    
-    .image-gallery .image-item img {
-        height: 100%;
-    }
-    
-    .image-gallery .image-item.expanded img {
-        height: auto;
-    }
 }
 
