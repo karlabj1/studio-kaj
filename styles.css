@@ -210,7 +210,7 @@ body {
     body {
         height: 100vh;
         height: -webkit-fill-available;
-        background-image: url('assets/phonebackground-image.webp');
+        background-image: url('/assets/phonebackground-image.webp');
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
