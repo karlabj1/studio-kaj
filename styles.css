@@ -51,6 +51,11 @@ body {
     font-size: 30px;
     color: #ffffff;
     letter-spacing: 0.1em;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    outline: none;
 }
 
 .menu-button {
@@ -228,6 +233,7 @@ body {
     .button-titles {
         column-gap: clamp(10px, 3vw, 40px);
         padding: 0 clamp(5px, 1.5vw, 15px);
+        transform: translate(0, 0);
     }
     
     .title-item {
