@@ -2,6 +2,19 @@
 (function() {
     'use strict';
     
+    // Wrap years in titles so they stay non-italic
+    function wrapYearsInTitles() {
+        document.querySelectorAll('.image-title').forEach(function(el) {
+            if (el.querySelector('.title-year')) return; // already processed
+            el.innerHTML = el.textContent.replace(/\b(19|20)\d{2}\b/g, '<span class="title-year">$&</span>');
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', wrapYearsInTitles);
+    } else {
+        wrapYearsInTitles();
+    }
+    
     const menuButton = document.getElementById('menuButton');
     const menuPopup = document.getElementById('menuPopup');
     
