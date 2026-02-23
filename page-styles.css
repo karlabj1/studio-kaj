@@ -301,18 +301,27 @@ body {
 }
 
 /* Chair page 2-column layout */
+.chair-page {
+    height: 100vh;
+    overflow: hidden;
+}
+
 .chair-gallery {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 60px);
     padding-top: 60px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .chair-image {
     width: 50%;
+    min-width: 0;
+    flex: 1;
     height: 100%;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -322,12 +331,18 @@ body {
 .chair-image img {
     width: 100%;
     height: 100%;
+    min-height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
 }
 
 /* Mobile responsive for chair page */
 @media (max-width: 768px) {
+    .chair-page {
+        overflow-y: auto;
+    }
+    
     .chair-gallery {
         flex-direction: column;
         height: auto;
@@ -337,6 +352,8 @@ body {
     .chair-image {
         width: 100%;
         height: 100vh;
+        min-height: 100vh;
+        flex: none;
     }
 }
 
