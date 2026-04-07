@@ -43,6 +43,16 @@ body {
     object-position: top center;
 }
 
+@media (max-width: 768px) {
+    :root {
+        --header-bar-height: 52px;
+    }
+
+    .logo img {
+        height: 52px;
+    }
+}
+
 .menu-button {
     position: absolute;
     top: 0;

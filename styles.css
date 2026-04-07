@@ -213,6 +213,14 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    :root {
+        --header-bar-height: 52px;
+    }
+
+    .logo img {
+        height: 52px;
+    }
+
     html {
         height: 100%;
         height: -webkit-fill-available;
