@@ -53,6 +53,16 @@ body {
     }
 }
 
+@media (max-width: 480px) {
+    :root {
+        --header-bar-height: 40px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+}
+
 .menu-button {
     position: absolute;
     top: 0;

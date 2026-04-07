@@ -272,6 +272,14 @@ body {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --header-bar-height: 40px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
     .button-titles {
         column-gap: clamp(5px, 2vw, 20px);
         padding: 0 clamp(5px, 1vw, 10px);
