@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root {
+    --header-bar-height: 70px;
+}
+
 html, body {
     height: 100%;
     width: 100%;
@@ -42,15 +46,11 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 20px;
+    padding: 0 20px 0 20px;
     display: flex;
-    align-items: center;
-    height: 60px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 200;
-    font-size: 30px;
-    color: #ffffff;
-    letter-spacing: 0.1em;
+    align-items: flex-start;
+    height: var(--header-bar-height);
+    text-decoration: none;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -58,17 +58,26 @@ body {
     outline: none;
 }
 
+.logo img {
+    height: 70px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    object-position: top center;
+    filter: brightness(0) invert(1);
+}
+
 .menu-button {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 20px;
+    padding: 0 20px 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 6px;
-    height: 60px;
+    height: var(--header-bar-height);
     cursor: pointer;
     z-index: 100;
     transition: transform 0.3s ease;
