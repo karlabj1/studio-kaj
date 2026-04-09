@@ -6,22 +6,28 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta name="theme-color" content="#353029">
     <title>KAJ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet"></noscript>
     <link rel="preload" as="image" href="assets/background-image.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=23">
+    <link rel="stylesheet" href="styles.css?v=26">
     <script>
-        // Fix white screen when navigating back (bfcache restore)
+        // BFCache restore: avoid full reload() — it causes a long white flash. Nudge repaint only.
         window.addEventListener('pageshow', function(event) {
-            if (event.persisted) {
-                window.location.reload();
-            }
+            if (!event.persisted) return;
+            requestAnimationFrame(function() {
+                var b = document.body;
+                if (!b) return;
+                b.style.transform = 'translateZ(0)';
+                void b.offsetWidth;
+                b.style.transform = '';
+            });
         });
-        
-        // Safari mobile viewport fix - run immediately
+
+        // Safari mobile viewport: update --vh on resize/orientation only (scroll hook caused extra repaints)
         (function() {
             function setHeight() {
                 var vh = window.innerHeight;
@@ -29,27 +35,11 @@
                 document.documentElement.style.height = vh + 'px';
                 document.body.style.height = vh + 'px';
             }
-            
-            // Set immediately
             setHeight();
-            
-            // Update on resize and orientation change
             window.addEventListener('resize', setHeight);
             window.addEventListener('orientationchange', function() {
                 setTimeout(setHeight, 100);
             });
-            
-            // Handle Safari's dynamic address bar - update on scroll
-            let ticking = false;
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        setHeight();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }, { passive: true });
         })();
     </script>
 </head>
@@ -77,6 +67,6 @@
             <a href="bio.html" class="menu-popup-item">BIO</a>
         </div>
     </div>
-    <script src="menu.js" defer></script>
+    <script src="menu.js?v=26" defer></script>
 </body>
 </html>

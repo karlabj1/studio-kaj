@@ -24,6 +24,7 @@
             let touchMoved = false;
             let touchStartTime = 0;
             let touchHandled = false;
+            let lastTouchToggle = 0;
             
             const toggleImage = function() {
                 // Immediate toggle - no delays
@@ -65,6 +66,7 @@
                         e.preventDefault();
                         e.stopPropagation();
                         touchHandled = true;
+                        lastTouchToggle = Date.now();
                         toggleImage();
                     }
                     // Reset state
@@ -76,9 +78,9 @@
                 }
             }, { passive: false });
             
-            // Click for desktop
+            // Click for desktop; ignore synthetic click after touch (avoids double-toggle / flicker)
             item.addEventListener('click', function(e) {
-                // Only handle click if it wasn't from a touch event
+                if (Date.now() - lastTouchToggle < 450) return;
                 if (!touchHandled) {
                     toggleImage();
                 }

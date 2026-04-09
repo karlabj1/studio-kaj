@@ -23,6 +23,7 @@
             let touchMoved = false;
             let touchStartTime = 0;
             let touchHandled = false;
+            let lastTouchToggle = 0;
             
             const handleInteraction = function() {
                 const isRegular = item.getAttribute('data-regular') === 'true';
@@ -96,6 +97,7 @@
                         e.preventDefault();
                         e.stopPropagation();
                         touchHandled = true;
+                        lastTouchToggle = Date.now();
                         handleInteraction();
                     }
                     // Reset state
@@ -107,8 +109,8 @@
                 }
             }, { passive: false });
             
-            // Click for desktop
             item.addEventListener('click', function(e) {
+                if (Date.now() - lastTouchToggle < 450) return;
                 if (!touchHandled) {
                     handleInteraction();
                 }
