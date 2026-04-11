@@ -289,6 +289,24 @@ body {
     display: block;
 }
 
+/* Digital: Palmtree — three thumbnails / expanded images in one row, equal width */
+.series-row-palmtree {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    gap: clamp(6px, 1.8vw, 22px);
+    padding: 0 clamp(6px, 1.5vw, 18px);
+    box-sizing: border-box;
+}
+
+.series-row-palmtree .image-item {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+}
+
 .series-images {
     display: flex;
     flex-direction: column;
