@@ -108,6 +108,35 @@ body {
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
+.home-announcement {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--header-bar-height) + 12px);
+    z-index: 50;
+    text-align: center;
+    pointer-events: none;
+    padding: 0 clamp(16px, 4vw, 32px);
+}
+
+.home-announcement-line {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: clamp(12px, 2vw, 15px);
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.06em;
+    line-height: 1.45;
+}
+
+.home-announcement-line:first-of-type {
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: 500;
+}
+
+.home-announcement-line + .home-announcement-line {
+    margin-top: 0.25em;
+}
+
 .menu-popup {
     position: fixed;
     top: 0;
