@@ -1,18 +1,43 @@
 (function () {
     'use strict';
 
-    // BFCache / swipe-back restore: nudge a repaint so Safari does not leave a blank white view.
+    function nudgeRepaint() {
+        requestAnimationFrame(function () {
+            var b = document.body;
+            if (!b) return;
+            b.style.transform = 'translateZ(0)';
+            void b.offsetWidth;
+            b.style.transform = '';
+        });
+    }
+
+    // BFCache / swipe-back, back-forward, and tab/app switch: WebKit often leaves a blank white
+    // view until something forces a repaint (especially with fixed-position layout on the home page).
     window.addEventListener(
         'pageshow',
         function (event) {
-            if (!event.persisted) return;
-            requestAnimationFrame(function () {
-                var b = document.body;
-                if (!b) return;
-                b.style.transform = 'translateZ(0)';
-                void b.offsetWidth;
-                b.style.transform = '';
-            });
+            if (event.persisted) {
+                nudgeRepaint();
+                return;
+            }
+            try {
+                var nav = performance.getEntriesByType('navigation')[0];
+                if (nav && nav.type === 'back_forward') {
+                    nudgeRepaint();
+                }
+            } catch (e) {
+                /* ignore */
+            }
+        },
+        false
+    );
+
+    document.addEventListener(
+        'visibilitychange',
+        function () {
+            if (document.visibilityState === 'visible') {
+                nudgeRepaint();
+            }
         },
         false
     );
@@ -33,4 +58,12 @@
     window.addEventListener('orientationchange', function () {
         setTimeout(setHeight, 100);
     });
+
+    window.addEventListener(
+        'load',
+        function () {
+            requestAnimationFrame(nudgeRepaint);
+        },
+        false
+    );
 })();

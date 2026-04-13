@@ -248,6 +248,7 @@ body {
     body {
         height: 100vh;
         height: -webkit-fill-available;
+        background-color: #353029;
         background-image: url('assets/background-image.webp?v=4');
         background-size: cover;
         background-position: center center;
@@ -261,6 +262,8 @@ body {
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
     
     .button-titles {
