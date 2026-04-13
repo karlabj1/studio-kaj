@@ -11,13 +11,14 @@
         });
     }
 
-    // BFCache / swipe-back, back-forward, tab/app switch, and home (/) navigations: WebKit often
-    // leaves a blank white view until something forces a repaint (fixed-position layout on index).
+    function isHome() {
+        return document.body && document.body.hasAttribute('data-home');
+    }
+
     window.addEventListener(
         'pageshow',
         function (event) {
-            var home = document.documentElement.hasAttribute('data-viewport-fix');
-            if (home) {
+            if (isHome()) {
                 nudgeRepaint();
                 requestAnimationFrame(nudgeRepaint);
                 return;
@@ -48,28 +49,4 @@
         false
     );
 
-    if (!document.documentElement.hasAttribute('data-viewport-fix')) return;
-
-    function setHeight() {
-        var vh = window.innerHeight;
-        document.documentElement.style.setProperty('--vh', vh + 'px');
-        document.documentElement.style.height = vh + 'px';
-        if (document.body) {
-            document.body.style.height = vh + 'px';
-        }
-    }
-
-    setHeight();
-    window.addEventListener('resize', setHeight, false);
-    window.addEventListener('orientationchange', function () {
-        setTimeout(setHeight, 100);
-    });
-
-    window.addEventListener(
-        'load',
-        function () {
-            requestAnimationFrame(nudgeRepaint);
-        },
-        false
-    );
 })();

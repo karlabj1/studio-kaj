@@ -5,7 +5,6 @@
 }
 
 html, body {
-    height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -13,8 +12,9 @@ html, body {
 
 html {
     background-color: #353029;
-    height: 100%;
-    height: -webkit-fill-available;
+    min-height: 100%;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -27,11 +27,11 @@ body {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* scroll — not fixed; fixed attachment is a common source of white flashes in Chrome/Safari */
+    background-attachment: scroll;
     min-height: 100vh;
+    min-height: 100dvh;
     min-height: -webkit-fill-available;
-    height: 100vh;
-    height: -webkit-fill-available;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -237,35 +237,30 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    /* Avoid html/body position:fixed + JS height — that combo often blanks the compositor on iOS/WebKit */
     html {
-        height: 100%;
-        height: -webkit-fill-available;
-        position: fixed;
+        min-height: 100%;
+        min-height: 100dvh;
+        min-height: -webkit-fill-available;
         width: 100%;
-        overflow: hidden;
+        overflow-x: hidden;
     }
-    
+
     body {
-        height: 100vh;
-        height: -webkit-fill-available;
+        min-height: 100%;
+        min-height: 100dvh;
+        min-height: -webkit-fill-available;
         background-color: #353029;
         background-image: url('assets/background-image.webp?v=4');
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: scroll;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow-y: auto;
+        width: 100%;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
     }
-    
+
     .button-titles {
         column-gap: clamp(10px, 3vw, 40px);
         padding: 0 clamp(5px, 1.5vw, 15px);
@@ -275,18 +270,6 @@ body {
     .title-item {
         font-size: clamp(14px, 2.5vw, 18px);
         font-weight: 300;
-    }
-}
-
-/* Safari iOS specific fix */
-@supports (-webkit-touch-callout: none) {
-    html {
-        height: -webkit-fill-available;
-    }
-    
-    body {
-        min-height: -webkit-fill-available;
-        height: -webkit-fill-available;
     }
 }
 
