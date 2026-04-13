@@ -176,7 +176,8 @@ body {
 }
 
 .image-item.expanded {
-    max-height: 2000px;
+    /* Tall portrait assets need headroom; 2000px clipped wide-viewport expands */
+    max-height: 12000px;
 }
 
 .image-item img {
@@ -192,6 +193,10 @@ body {
     image-rendering: crisp-edges;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+}
+
+.paper-page .image-item img {
+    image-rendering: auto;
 }
 
 .image-item.expanded img {
@@ -298,7 +303,7 @@ body {
 }
 
 .series-images .image-item.expanded {
-    max-height: 2000px;
+    max-height: 12000px;
 }
 
 .series-images .image-item.expanded img {
