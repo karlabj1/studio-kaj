@@ -195,7 +195,8 @@ body {
     transform: translateZ(0);
 }
 
-.paper-page .image-item img {
+.paper-page .image-item img,
+.canvas-page .image-item img {
     image-rendering: auto;
 }
 
