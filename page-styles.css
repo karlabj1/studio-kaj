@@ -1,11 +1,9 @@
+@import url('logo-vars.css?v=2');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-:root {
-    --header-bar-height: 54px;
 }
 
 html, body {
@@ -20,7 +18,7 @@ body {
 
 .logo {
     position: absolute;
-    top: 0;
+    top: var(--logo-inset-top);
     left: 0;
     padding: 0 20px 0 20px;
     display: flex;
@@ -36,36 +34,16 @@ body {
 }
 
 .logo img {
-    height: 54px;
+    height: var(--logo-height);
     width: auto;
     display: block;
     object-fit: contain;
     object-position: top center;
 }
 
-@media (max-width: 768px) {
-    :root {
-        --header-bar-height: 46px;
-    }
-
-    .logo img {
-        height: 46px;
-    }
-}
-
-@media (max-width: 480px) {
-    :root {
-        --header-bar-height: 34px;
-    }
-
-    .logo img {
-        height: 34px;
-    }
-}
-
 .menu-button {
     position: absolute;
-    top: 0;
+    top: var(--logo-inset-top);
     right: 0;
     padding: 0 20px 0 20px;
     display: flex;
@@ -171,7 +149,7 @@ body {
     width: 100%;
     min-height: 100vh;
     overflow-y: auto;
-    padding-top: var(--header-bar-height);
+    padding-top: var(--header-stack-height);
     contain: layout style;
 }
 
@@ -270,7 +248,7 @@ body {
     width: 100%;
     min-height: 100vh;
     overflow-y: auto;
-    padding-top: var(--header-bar-height);
+    padding-top: var(--header-stack-height);
 }
 
 .series {
@@ -350,8 +328,8 @@ body {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: calc(100vh - var(--header-bar-height));
-    margin-top: var(--header-bar-height);
+    height: calc(100vh - var(--header-stack-height));
+    margin-top: var(--header-stack-height);
 }
 
 .chair-image {
@@ -378,7 +356,7 @@ body {
     
     .chair-image {
         width: 100%;
-        height: calc(100vh - var(--header-bar-height));
-        min-height: calc(100vh - var(--header-bar-height));
+        height: calc(100vh - var(--header-stack-height));
+        min-height: calc(100vh - var(--header-stack-height));
     }
 }

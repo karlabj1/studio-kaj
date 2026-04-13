@@ -1,11 +1,9 @@
+@import url('logo-vars.css?v=2');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-:root {
-    --header-bar-height: 54px;
 }
 
 html, body {
@@ -44,7 +42,7 @@ body {
 
 .logo {
     position: absolute;
-    top: 0;
+    top: var(--logo-inset-top);
     left: 0;
     padding: 0 20px 0 20px;
     display: flex;
@@ -59,7 +57,7 @@ body {
 }
 
 .logo img {
-    height: 54px;
+    height: var(--logo-height);
     width: auto;
     display: block;
     object-fit: contain;
@@ -69,7 +67,7 @@ body {
 
 .menu-button {
     position: absolute;
-    top: 0;
+    top: var(--logo-inset-top);
     right: 0;
     padding: 0 20px 0 20px;
     display: flex;
@@ -112,7 +110,7 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(var(--header-bar-height) + 12px);
+    top: calc(var(--header-stack-height) + 12px);
     z-index: 50;
     text-align: center;
     pointer-events: none;
@@ -241,14 +239,6 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    :root {
-        --header-bar-height: 46px;
-    }
-
-    .logo img {
-        height: 46px;
-    }
-
     html {
         height: 100%;
         height: -webkit-fill-available;
@@ -300,14 +290,6 @@ body {
 }
 
 @media (max-width: 480px) {
-    :root {
-        --header-bar-height: 34px;
-    }
-
-    .logo img {
-        height: 34px;
-    }
-
     .button-titles {
         column-gap: clamp(5px, 2vw, 20px);
         padding: 0 clamp(5px, 1vw, 10px);
