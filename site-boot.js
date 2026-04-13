@@ -1,13 +1,15 @@
 (function () {
     'use strict';
 
+    /**
+     * Never set transform/filter on document.body: that breaks position:fixed descendants
+     * (menu overlay, etc.) and can blank the compositor in Chrome/Safari.
+     */
     function nudgeRepaint() {
         requestAnimationFrame(function () {
-            var b = document.body;
-            if (!b) return;
-            b.style.transform = 'translateZ(0)';
-            void b.offsetWidth;
-            b.style.transform = '';
+            void document.documentElement.offsetHeight;
+            var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+            window.scrollTo(0, y);
         });
     }
 

@@ -23,12 +23,6 @@ html {
 
 body {
     background-color: #353029;
-    background-image: url('assets/background-image.webp?v=4');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    /* scroll — not fixed; fixed attachment is a common source of white flashes in Chrome/Safari */
-    background-attachment: scroll;
     min-height: 100vh;
     min-height: 100dvh;
     min-height: -webkit-fill-available;
@@ -36,10 +30,33 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Photo loads from HTML <img> (root /assets/…) — avoids CSS url() quirks and paints reliably */
+.home-bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.home-bg-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
 }
 
 .logo {
     position: absolute;
+    z-index: 10;
     top: var(--logo-inset-top);
     left: 0;
     padding: 0 20px 0 20px;
@@ -197,6 +214,7 @@ body {
 
 .button-titles {
     position: absolute;
+    z-index: 5;
     inset: 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -251,14 +269,13 @@ body {
         min-height: 100dvh;
         min-height: -webkit-fill-available;
         background-color: #353029;
-        background-image: url('assets/background-image.webp?v=4');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: scroll;
         width: 100%;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .home-bg-layer {
+        min-height: -webkit-fill-available;
     }
 
     .button-titles {
