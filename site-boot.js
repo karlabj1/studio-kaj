@@ -4,11 +4,19 @@
     /** Bump `version.txt` on each production deploy so returning visitors auto-reload once. */
     var DEPLOY_VERSION_KEY = 'kaj_deploy_v';
 
-    function stripKajCacheBustParam() {
+    function stripKajEphemeralParams() {
         try {
             var u = new URL(location.href);
-            if (!u.searchParams.has('_kajcb')) return;
-            u.searchParams.delete('_kajcb');
+            var changed = false;
+            if (u.searchParams.has('_kajcb')) {
+                u.searchParams.delete('_kajcb');
+                changed = true;
+            }
+            if (u.searchParams.has('_kajnav')) {
+                u.searchParams.delete('_kajnav');
+                changed = true;
+            }
+            if (!changed) return;
             history.replaceState(null, '', u.pathname + u.search + u.hash);
         } catch (e) {
             /* ignore */
@@ -45,7 +53,7 @@
                     } catch (e1) {
                         /* ignore */
                     }
-                    stripKajCacheBustParam();
+                    stripKajEphemeralParams();
                     return;
                 }
 
@@ -75,6 +83,9 @@
     }
 
     syncDeployVersion();
+
+    /** After deploy/version logic, clean ?_kajcb / ?_kajnav from the address bar. */
+    stripKajEphemeralParams();
 
     /**
      * Directory URL for the folder that contains the current HTML file (trailing slash).
@@ -116,20 +127,40 @@
     }
 
     /**
-     * On the home page, the logo href points at the same URL as the current document.
-     * Following it forces a full reload; Chrome/Vercel often flash a blank document. Stay in place.
+     * Logo: on home, scroll to top (no reload). On other pages, assign home with ?_kajnav=
+     * so Chrome/Vercel must fetch HTML instead of reusing a blank cached shell.
      */
-    function attachLogoHomeNoReload() {
-        if (!document.body || !document.body.hasAttribute('data-home')) return;
+    function attachLogoNavigation() {
         document.querySelectorAll('a.logo').forEach(function (a) {
-            if (a.getAttribute('data-kaj-logo-home') === '1') return;
-            a.setAttribute('data-kaj-logo-home', '1');
+            if (a.getAttribute('data-kaj-logo-nav') === '1') return;
+            a.setAttribute('data-kaj-logo-nav', '1');
             a.addEventListener(
                 'click',
                 function (e) {
                     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
                     e.preventDefault();
-                    window.scrollTo(0, 0);
+
+                    if (document.body && document.body.hasAttribute('data-home')) {
+                        window.scrollTo(0, 0);
+                        return;
+                    }
+
+                    if (location.protocol === 'file:') {
+                        try {
+                            location.assign(new URL('index.html', location.href).href);
+                        } catch (err) {
+                            location.assign('index.html');
+                        }
+                        return;
+                    }
+
+                    try {
+                        var dest = new URL(homePageHref());
+                        dest.searchParams.set('_kajnav', String(Date.now()));
+                        location.assign(dest.href);
+                    } catch (err2) {
+                        location.assign(homePageHref());
+                    }
                 },
                 false
             );
@@ -138,7 +169,7 @@
 
     function runHomeFixes() {
         applyHomeLinks();
-        attachLogoHomeNoReload();
+        attachLogoNavigation();
     }
 
     runHomeFixes();
