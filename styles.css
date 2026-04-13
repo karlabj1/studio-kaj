@@ -33,7 +33,7 @@ body {
     position: relative;
 }
 
-/* Hero: CSS background + inline critical CSS in index.html; JS sets absolute url() in site-boot.js */
+/* Hero: <img.home-bg-layer-img> in index.html uses absolute prod URL; no CSS url() (avoids Vercel/cascade issues). */
 .home-bg-layer {
     position: fixed;
     inset: 0;
@@ -45,12 +45,16 @@ body {
     z-index: 0;
     pointer-events: none;
     background-color: #353029;
-    background-image: url('assets/background-image.webp?v=5');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+}
+
+.home-bg-layer .home-bg-layer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
 }
 
 .logo {

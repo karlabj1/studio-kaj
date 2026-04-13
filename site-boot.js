@@ -40,25 +40,8 @@
         });
     }
 
-    /**
-     * Force hero background URL from the current page URL so resolution never depends on
-     * a mismatched base path or stale relative resolution in Chrome.
-     */
-    function applyHomeBackground() {
-        if (!document.body || !document.body.hasAttribute('data-home')) return;
-        var layer = document.querySelector('.home-bg-layer');
-        if (!layer) return;
-        try {
-            var imgUrl = new URL('assets/background-image.webp?v=5', location.href).href;
-            layer.style.backgroundImage = 'url("' + imgUrl.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '")';
-        } catch (e3) {
-            /* ignore */
-        }
-    }
-
     function runHomeFixes() {
         applyHomeLinks();
-        applyHomeBackground();
     }
 
     runHomeFixes();
