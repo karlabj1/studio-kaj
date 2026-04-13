@@ -1,25 +1,23 @@
 /* === Logo layout — edit values below ===
-   --logo-inset-top: gap from top of screen to logo / menu row
-   --logo-height: logo size (three breakpoints below)
-   After saving, bump ?v= on the @import in styles.css and page-styles.css (same number in both). */
+   Base gap + optional notch (safe-area). Logo heights at three breakpoints.
+   After saving, bump ?v= on logo-vars.css in every .html file (search: logo-vars.css). */
 
 :root {
-    /* Space between top of viewport and logo / menu row */
-    --logo-inset-top: 12px;
-    --logo-height: 36px;
+    /* Space from top: base gap + iPhone notch / Dynamic Island when present */
+    --logo-inset-top: calc(20px + env(safe-area-inset-top, 0px));
+    --logo-height: 30px;
     --header-bar-height: var(--logo-height);
-    /* Total height from top of page to bottom of header (inset + bar) — use for gallery padding etc. */
     --header-stack-height: calc(var(--logo-inset-top) + var(--header-bar-height));
 }
 
 @media (max-width: 768px) {
     :root {
-        --logo-height: 30px;
+        --logo-height: 26px;
     }
 }
 
 @media (max-width: 480px) {
     :root {
-        --logo-height: 26px;
+        --logo-height: 22px;
     }
 }
