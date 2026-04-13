@@ -268,17 +268,6 @@ body.shop-page .site-footer {
     padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
 }
 
-body.apparel-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-body.apparel-page .apparel-gallery {
-    flex: 1 0 auto;
-    min-height: 40vh;
-}
-
 /* Chair page - single full-width image */
 .chair-gallery {
     display: flex;
