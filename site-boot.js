@@ -40,8 +40,30 @@
         });
     }
 
+    /**
+     * On the home page, the logo href points at the same URL as the current document.
+     * Following it forces a full reload; Chrome/Vercel often flash a blank document. Stay in place.
+     */
+    function attachLogoHomeNoReload() {
+        if (!document.body || !document.body.hasAttribute('data-home')) return;
+        document.querySelectorAll('a.logo').forEach(function (a) {
+            if (a.getAttribute('data-kaj-logo-home') === '1') return;
+            a.setAttribute('data-kaj-logo-home', '1');
+            a.addEventListener(
+                'click',
+                function (e) {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                    e.preventDefault();
+                    window.scrollTo(0, 0);
+                },
+                false
+            );
+        });
+    }
+
     function runHomeFixes() {
         applyHomeLinks();
+        attachLogoHomeNoReload();
     }
 
     runHomeFixes();
