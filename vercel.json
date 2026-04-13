@@ -14,6 +14,16 @@
       "source": "/index",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/digital",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/digital.html",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
@@ -52,7 +62,7 @@
       ]
     },
     {
-      "source": "/(canvas|digital|paper|photo|chair|shop|apparel)",
+      "source": "/(canvas|paper|photo|chair|shop|apparel)",
       "headers": [
         {
           "key": "Cache-Control",
