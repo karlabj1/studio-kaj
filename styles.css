@@ -33,7 +33,7 @@ body {
     position: relative;
 }
 
-/* Hero: <img.home-bg-layer-img> in index.html uses absolute prod URL; no CSS url() (avoids Vercel/cascade issues). */
+/* Hero img: keep layer behind UI — no transform on this fixed layer (Chrome can paint it above siblings). */
 .home-bg-layer {
     position: fixed;
     inset: 0;
@@ -45,8 +45,14 @@ body {
     z-index: 0;
     pointer-events: none;
     background-color: #353029;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+}
+
+/* Wraps all home UI so z-index stacks above .home-bg-layer (see index.html). */
+.home-foreground {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .home-bg-layer .home-bg-layer-img {
