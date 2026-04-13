@@ -11,11 +11,17 @@
         });
     }
 
-    // BFCache / swipe-back, back-forward, and tab/app switch: WebKit often leaves a blank white
-    // view until something forces a repaint (especially with fixed-position layout on the home page).
+    // BFCache / swipe-back, back-forward, tab/app switch, and home (/) navigations: WebKit often
+    // leaves a blank white view until something forces a repaint (fixed-position layout on index).
     window.addEventListener(
         'pageshow',
         function (event) {
+            var home = document.documentElement.hasAttribute('data-viewport-fix');
+            if (home) {
+                nudgeRepaint();
+                requestAnimationFrame(nudgeRepaint);
+                return;
+            }
             if (event.persisted) {
                 nudgeRepaint();
                 return;
