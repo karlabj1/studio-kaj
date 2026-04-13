@@ -1,6 +1,81 @@
 (function () {
     'use strict';
 
+    /** Bump `version.txt` on each production deploy so returning visitors auto-reload once. */
+    var DEPLOY_VERSION_KEY = 'kaj_deploy_v';
+
+    function stripKajCacheBustParam() {
+        try {
+            var u = new URL(location.href);
+            if (!u.searchParams.has('_kajcb')) return;
+            u.searchParams.delete('_kajcb');
+            history.replaceState(null, '', u.pathname + u.search + u.hash);
+        } catch (e) {
+            /* ignore */
+        }
+    }
+
+    /**
+     * Compare /version.txt (always fetched with no-store) to localStorage. If the deploy
+     * id changed, reload once with a query param so the browser must revalidate HTML.
+     * After reload, strip the param. No user action required.
+     */
+    function syncDeployVersion() {
+        if (location.protocol === 'file:') return;
+        if (typeof fetch === 'undefined') return;
+
+        var hadCb = false;
+        try {
+            hadCb = new URL(location.href).searchParams.has('_kajcb');
+        } catch (e0) {
+            return;
+        }
+
+        fetch('/version.txt', { cache: 'no-store', credentials: 'same-origin' })
+            .then(function (r) {
+                return r.ok ? r.text() : '';
+            })
+            .then(function (text) {
+                var serverV = (text || '').trim();
+                if (!serverV) return;
+
+                if (hadCb) {
+                    try {
+                        localStorage.setItem(DEPLOY_VERSION_KEY, serverV);
+                    } catch (e1) {
+                        /* ignore */
+                    }
+                    stripKajCacheBustParam();
+                    return;
+                }
+
+                var prev = null;
+                try {
+                    prev = localStorage.getItem(DEPLOY_VERSION_KEY);
+                } catch (e2) {
+                    /* ignore */
+                }
+
+                if (prev && prev !== serverV) {
+                    var u = new URL(location.href);
+                    u.searchParams.set('_kajcb', String(Date.now()));
+                    location.replace(u.toString());
+                    return;
+                }
+
+                try {
+                    localStorage.setItem(DEPLOY_VERSION_KEY, serverV);
+                } catch (e3) {
+                    /* ignore */
+                }
+            })
+            .catch(function () {
+                /* offline or blocked — do not reload */
+            });
+    }
+
+    syncDeployVersion();
+
     /**
      * Directory URL for the folder that contains the current HTML file (trailing slash).
      * Used so "home" works on file://, site root, and subfolder hosts (e.g. GitHub Pages).
