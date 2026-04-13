@@ -5,7 +5,7 @@
 }
 
 :root {
-    --header-bar-height: 62px;
+    --header-bar-height: 54px;
 }
 
 html, body {
@@ -59,7 +59,7 @@ body {
 }
 
 .logo img {
-    height: 62px;
+    height: 54px;
     width: auto;
     display: block;
     object-fit: contain;
@@ -242,11 +242,11 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     :root {
-        --header-bar-height: 52px;
+        --header-bar-height: 46px;
     }
 
     .logo img {
-        height: 52px;
+        height: 46px;
     }
 
     html {
@@ -301,11 +301,11 @@ body {
 
 @media (max-width: 480px) {
     :root {
-        --header-bar-height: 40px;
+        --header-bar-height: 34px;
     }
 
     .logo img {
-        height: 40px;
+        height: 34px;
     }
 
     .button-titles {
