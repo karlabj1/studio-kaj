@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-viewport-fix>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <style>html,body{background-color:#353029}</style>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -12,39 +13,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,500;1,100;1,200;1,300&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,500;1,100;1,200;1,300&display=swap" rel="stylesheet"></noscript>
-    <link rel="preload" as="image" href="assets/background-image.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=34">
-    <script>
-        // BFCache restore: avoid full reload() — it causes a long white flash. Nudge repaint only.
-        window.addEventListener('pageshow', function(event) {
-            if (!event.persisted) return;
-            requestAnimationFrame(function() {
-                var b = document.body;
-                if (!b) return;
-                b.style.transform = 'translateZ(0)';
-                void b.offsetWidth;
-                b.style.transform = '';
-            });
-        });
-
-        // Safari mobile viewport: update --vh on resize/orientation only (scroll hook caused extra repaints)
-        (function() {
-            function setHeight() {
-                var vh = window.innerHeight;
-                document.documentElement.style.setProperty('--vh', vh + 'px');
-                document.documentElement.style.height = vh + 'px';
-                document.body.style.height = vh + 'px';
-            }
-            setHeight();
-            window.addEventListener('resize', setHeight);
-            window.addEventListener('orientationchange', function() {
-                setTimeout(setHeight, 100);
-            });
-        })();
-    </script>
+    <link rel="preload" as="image" href="assets/background-image.webp?v=4" fetchpriority="high">
+    <link rel="stylesheet" href="styles.css?v=35">
 </head>
 <body>
-    <a href="index.html" class="logo"><img src="assets/KAJ-Logo.webp?v=3" alt="KAJ" width="1846" height="832" decoding="async"></a>
+    <a href="index.html" class="logo"><img src="assets/KAJ-Logo.webp?v=4" alt="KAJ" width="1846" height="832" decoding="async"></a>
     <div class="menu-button" id="menuButton">
         <span></span>
         <span></span>
@@ -69,6 +42,7 @@
             <a href="chair.html" class="menu-popup-item">CHAIR</a>
         </div>
     </div>
+    <script src="site-boot.js?v=1"></script>
     <script src="menu.js?v=30" defer></script>
 </body>
 </html>
