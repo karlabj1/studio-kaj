@@ -247,6 +247,38 @@ body {
     font-style: normal;
 }
 
+.site-footer {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: 0.04em;
+    color: rgba(32, 25, 8, 0.55);
+    text-align: center;
+    padding: 24px 16px 32px;
+    width: 100%;
+}
+
+body.shop-page .site-footer {
+    color: rgba(255, 255, 255, 0.45);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+}
+
+body.apparel-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body.apparel-page .apparel-gallery {
+    flex: 1 0 auto;
+    min-height: 40vh;
+}
+
 /* Chair page - single full-width image */
 .chair-gallery {
     display: flex;
