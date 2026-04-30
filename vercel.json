@@ -138,11 +138,11 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate, s-maxage=0, stale-while-revalidate=0"
+          "value": "no-store, no-cache, must-revalidate, max-age=0, s-maxage=0"
         },
         {
           "key": "CDN-Cache-Control",
-          "value": "public, max-age=0, must-revalidate, s-maxage=0"
+          "value": "no-store"
         },
         {
           "key": "X-Content-Type-Options",
