@@ -299,12 +299,12 @@ body {
     .button-titles {
         gap: clamp(10px, 3vw, 40px);
         padding: 0 clamp(5px, 1.5vw, 15px);
-        transform: translate(0, 0);
+        transform: translate(0, -70px);
     }
     
     .title-item {
-        font-size: clamp(14px, 2.5vw, 18px);
-        font-weight: 300;
+        font-size: clamp(18px, 4.8vw, 24px);
+        font-weight: 400;
     }
 }
 
@@ -312,10 +312,11 @@ body {
     .button-titles {
         gap: clamp(5px, 2vw, 20px);
         padding: 0 clamp(5px, 1vw, 10px);
+        transform: translate(0, -85px);
     }
     
     .title-item {
-        font-size: clamp(12px, 2vw, 16px);
-        font-weight: 300;
+        font-size: clamp(17px, 5.4vw, 22px);
+        font-weight: 400;
     }
 }
