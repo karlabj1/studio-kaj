@@ -151,6 +151,17 @@ body {
     contain: layout style;
 }
 
+.image-section-label {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(32, 25, 8, 0.78);
+    padding: 18px 20px 10px;
+}
+
 .image-item {
     width: 100%;
     min-height: 80px;
